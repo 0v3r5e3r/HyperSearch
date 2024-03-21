@@ -147,7 +147,7 @@ public class HyperSearch {
 		System.out.println(Ansi.ansi().a("|                                      |").reset());
 		System.out.println(Ansi.ansi().fg(Ansi.Color.YELLOW).a("| ").reset().a("HyperSearch - A file search utility").fg(Ansi.Color.YELLOW).a("  |"));
 		System.out.println(Ansi.ansi().a("|                                      |"));
-		System.out.println(Ansi.ansi().a("|         ").reset().a("Threadding Enabled").fg(Ansi.Color.YELLOW).a("           |"));
+		System.out.println(Ansi.ansi().a("|          ").reset().a("Threading Enabled").fg(Ansi.Color.YELLOW).a("           |"));
 		System.out.println(Ansi.ansi().a("|                                      |"));
 		System.out.println(Ansi.ansi().a("\\======================================/").reset());
 		System.out.print("\n");
