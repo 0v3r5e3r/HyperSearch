@@ -137,25 +137,34 @@ public class HyperSearch {
 		return driveUsage;
 	}
 	
+	/**
+	 * A wrapper for System.out.println
+	 * @param s - The String to print
+	 */
+	public static void print(Object o) {
+		System.out.println(o);
+	}
+	
 	@SuppressWarnings("static-access") // I'm aware it's static, thank you
 	public static void main(String[] args) {
 		
 		AnsiConsole.systemInstall();
 		
 		// Introduction Header
-		System.out.println(Ansi.ansi().fg(Ansi.Color.YELLOW).a("/======================================\\"));
-		System.out.println(Ansi.ansi().a("|                                      |").reset());
-		System.out.println(Ansi.ansi().fg(Ansi.Color.YELLOW).a("| ").reset().a("HyperSearch - A file search utility").fg(Ansi.Color.YELLOW).a("  |"));
-		System.out.println(Ansi.ansi().a("|                                      |"));
-		System.out.println(Ansi.ansi().a("|          ").reset().a("Threading Enabled").fg(Ansi.Color.YELLOW).a("           |"));
-		System.out.println(Ansi.ansi().a("|                                      |"));
-		System.out.println(Ansi.ansi().a("\\======================================/").reset());
+		print(Ansi.ansi().fg(Ansi.Color.YELLOW).a("/======================================\\"));
+		print(Ansi.ansi().a("|                                      |").reset());
+		print(Ansi.ansi().fg(Ansi.Color.YELLOW).a("| ").reset().a("HyperSearch - A file search utility").fg(Ansi.Color.YELLOW).a("  |"));
+		print(Ansi.ansi().a("|                                      |"));
+		print(Ansi.ansi().a("|          ").reset().a("Threading Enabled").fg(Ansi.Color.YELLOW).a("           |"));
+		print(Ansi.ansi().a("|                                      |"));
+		print(Ansi.ansi().a("\\======================================/").reset());
 		System.out.print("\n");
 		
+		// Calculate a thread count, cap between 5 and 15.
 		int numProcessors = Runtime.getRuntime().availableProcessors();
 		MAX_THREADS = (numProcessors * 2) / 3;
-		MAX_THREADS = Math.max(MAX_THREADS, 5);
-		System.out.println("Your computer has " + Ansi.ansi().fg(Ansi.Color.BLUE).a(numProcessors).reset() + " processors, we will us a maximum of " + MAX_THREADS + " threads.\n\n");
+		MAX_THREADS = Math.min(Math.max(MAX_THREADS, 5), 15);
+		print("Your computer has " + Ansi.ansi().fg(Ansi.Color.BLUE).a(numProcessors).reset() + " processors, we will us a maximum of " + MAX_THREADS + " threads.\n\n");
 		
 		
 		// Get Search Expression
@@ -173,12 +182,12 @@ public class HyperSearch {
 		s.close();
 		
 		// Console Padding
-		System.out.println("\nProgram will search " + getDrives().length + " drives.");
+		print("\nProgram will search " + getDrives().length + " drives.");
 		if(doSearchDirNames)
-			System.out.println("Program will search directory names.");
+			print("Program will search directory names.");
 		else
-			System.out.println("Program will " + Ansi.ansi().fg(Ansi.Color.RED).a("not").reset() + " search directory names.");
-		System.out.println("\n\n");
+			print("Program will " + Ansi.ansi().fg(Ansi.Color.RED).a("not").reset() + " search directory names.");
+		print("\n\n");
 		
 		long startTime = System.currentTimeMillis();
 		
@@ -207,11 +216,11 @@ public class HyperSearch {
 					File root = new File(f.getAbsolutePath());
 					
 					// Start Search
-					System.out.println("[" + threadNumber + "] Started Searching " + root.getAbsolutePath());
+					print("[" + threadNumber + "] Started Searching " + root.getAbsolutePath());
 					recursiveSearch(f, pattern, threadNumber);
 					
 					// Search is over, notify user and main thread
-					System.out.println("[" + threadNumber + "] Finished Searching " + root.getAbsolutePath());
+					print("[" + threadNumber + "] Finished Searching " + root.getAbsolutePath());
 					HyperSearch.threadsActive.addAndGet(-1);
 					try {
 						this.join();
@@ -252,7 +261,7 @@ public class HyperSearch {
 		double executionTime = (endTime - startTime) / 1000.0;
 		
 		// Tell the user we are done.
-		System.out.println(Ansi.ansi().fg(Ansi.Color.GREEN).a("\n\nSearching Completed! Search took " + executionTime + " seconds\n").reset().a("Press the '").fg(Ansi.Color.RED).a("X").reset().a("' on the top-right to close the console."));
+		print(Ansi.ansi().fg(Ansi.Color.GREEN).a("\n\nSearching Completed! Search took " + executionTime + " seconds\n").reset().a("Press the '").fg(Ansi.Color.RED).a("X").reset().a("' on the top-right to close the console."));
 	}
 	
 }
